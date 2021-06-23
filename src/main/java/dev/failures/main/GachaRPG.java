@@ -6,12 +6,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class GachaRPG extends JavaPlugin {
     public static GachaRPG instance;
-    public ConfigHandler playerFile;
 
     @Override
     public void onEnable() {
         instance = this;
-        playerFile = new ConfigHandler(this, "stats.yml");
         getLogger().info("GachaRPG has been enabled.");
 
         getServer().getPluginManager().registerEvents(new MobDeathEvent(this), this);
