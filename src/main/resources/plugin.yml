@@ -1,0 +1,4 @@
+name: GachaRPG
+version: ${project.version}
+main: dev.failures.main.GachaRPG
+api-version: 1.16
