@@ -1,6 +1,7 @@
 package dev.failures.main.Utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ColorUtil {
+public class MessageUtil {
     public static String colorize(String message){
         Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]){6}");
 
@@ -54,6 +55,10 @@ public class ColorUtil {
 
     public static String withCommas(Double count) {
         return String.format("%,.0f",count);
+    }
+
+    public static void sendNoPermission(Player p) {
+        p.sendMessage(colorize("&fUnknown command. Type '/help' for help."));
     }
 }
 
