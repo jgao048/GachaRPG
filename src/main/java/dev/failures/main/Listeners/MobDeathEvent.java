@@ -19,18 +19,10 @@ public class MobDeathEvent implements Listener {
         if(e.getEntity().getKiller() == null) return;
 
         Player p = e.getEntity().getKiller();
-        PlayerHandler player = new PlayerHandler(p);
-        dropExperience(player);
-        dropLoot(player);
+
 
     }
 
-    private void dropExperience(PlayerHandler player) {
 
-    }
-
-    private void dropLoot(PlayerHandler player) {
-
-    }
 
 }

@@ -1,8 +1,12 @@
 package dev.failures.main.Listeners;
 
+import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import dev.failures.main.GachaRPG;
+import dev.failures.main.Handlers.PlayerHandler;
 import org.bson.Document;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,17 +21,14 @@ public class CreateProfileEvent implements Listener {
     @EventHandler
     private void playerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        String pid = p.getUniqueId().toString();
         MongoCollection<Document> db = GachaRPG.col;
 
-        Document player = db.find(Filters.eq("uuid",p.getUniqueId().toString())).first();
-        if(player == null) {
-            Document data = new Document("uuid", p.getUniqueId().toString())
-                    .append("name", p.getDisplayName())
-                    .append("level", 1)
-                    .append("exp", 0)
-                    .append("gold", 0);
-            GachaRPG.col.insertOne(data);
-            p.setLevel(1);
-        }
+        PlayerHandler player = new PlayerHandler(p, 1, 0, 100);
+        Gson gson = new Gson();
+        String playerJson = gson.toJson(player);
+
+        Document playerData = new Document("uuid",pid).append("data",playerJson);
+
     }
 }

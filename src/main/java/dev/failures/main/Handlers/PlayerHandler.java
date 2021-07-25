@@ -9,19 +9,15 @@ import org.bukkit.entity.Player;
 import java.util.logging.Filter;
 
 public class PlayerHandler {
-    MongoCollection<Document> data = GachaRPG.col;
     Player p;
     int playerLevel;
     double playerExperience;
     double playerGold;
 
-    public PlayerHandler(Player player) {
+    public PlayerHandler(Player player, int level, double exp, double gold) {
         p = player;
+        playerLevel = level;
+        playerExperience = exp;
+        playerGold = gold;
     }
-
-    public double getGold() {
-        Filter filter;
-        return data.find(Filters.eq("uuid",p.getUniqueId().toString())).first().getDouble("gold");
-    }
-
 }
