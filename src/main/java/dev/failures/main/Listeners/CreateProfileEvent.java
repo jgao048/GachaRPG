@@ -1,37 +1,40 @@
 package dev.failures.main.Listeners;
 
-import com.google.gson.Gson;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+import com.google.gson.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.Handlers.PlayerHandler;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 public class CreateProfileEvent implements Listener {
     private GachaRPG main;
+    private MongoCollection<Document> db;
 
-    public CreateProfileEvent(GachaRPG main) { this.main = main; }
+    public CreateProfileEvent(GachaRPG main, MongoCollection<Document> collection) { this.main = main; db = collection; }
 
     @EventHandler
-    private void playerJoin(PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        String pid = p.getUniqueId().toString();
-        MongoCollection<Document> db = GachaRPG.col;
+    private void playerJoin(AsyncPlayerPreLoginEvent e) {
+        String pid = e.getUniqueId().toString();
+        PlayerHandler player = new PlayerHandler(1, 0, 100, 0);
 
-        if(db.find(Filters.eq("uuid",pid)).first() == null) {
-            PlayerHandler player = new PlayerHandler(p, 1, 0, 100, 0);
-            Gson gson = new Gson();
-            String playerJson = gson.toJson(player);
-
-            Document playerData = new Document("uuid",pid).append("data",playerJson);
-            db.insertOne(playerData);
-        }
-
+        main.getLogger().info("Test: " + player);
+        Bukkit.getScheduler().runTaskAsynchronously(main, new Runnable() {
+            @Override
+            public void run() {
+                if(db.find(Filters.eq("uuid",pid)).first() == null) {
+                    String playerJson = GachaRPG.gson.toJson(player);
+                    Document playerData = new Document("uuid",pid).append("data", playerJson);
+                    db.insertOne(playerData);
+                }
+            }
+        });
     }
 }

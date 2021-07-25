@@ -9,14 +9,12 @@ import org.bukkit.entity.Player;
 import java.util.logging.Filter;
 
 public class PlayerHandler {
-    Player p;
     int playerLevel;
     double playerExperience;
     double playerGold;
     int skillPoints;
 
-    public PlayerHandler(Player player, int level, double exp, double gold, int sp) {
-        p = player;
+    public PlayerHandler(int level, double exp, double gold, int sp) {
         playerLevel = level;
         playerExperience = exp;
         playerGold = gold;
