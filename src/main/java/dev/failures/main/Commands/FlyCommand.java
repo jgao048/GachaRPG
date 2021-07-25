@@ -25,9 +25,6 @@ public class FlyCommand implements CommandExecutor {
             return false;
         }
 
-
-
-
         return false;
     }
 }
