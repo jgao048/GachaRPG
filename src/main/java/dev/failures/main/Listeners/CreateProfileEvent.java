@@ -24,11 +24,14 @@ public class CreateProfileEvent implements Listener {
         String pid = p.getUniqueId().toString();
         MongoCollection<Document> db = GachaRPG.col;
 
-        PlayerHandler player = new PlayerHandler(p, 1, 0, 100);
-        Gson gson = new Gson();
-        String playerJson = gson.toJson(player);
+        if(db.find(Filters.eq("uuid",pid)).first() == null) {
+            PlayerHandler player = new PlayerHandler(p, 1, 0, 100, 0);
+            Gson gson = new Gson();
+            String playerJson = gson.toJson(player);
 
-        Document playerData = new Document("uuid",pid).append("data",playerJson);
+            Document playerData = new Document("uuid",pid).append("data",playerJson);
+            db.insertOne(playerData);
+        }
 
     }
 }
