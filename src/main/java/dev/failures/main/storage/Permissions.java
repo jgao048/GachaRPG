@@ -1,4 +1,4 @@
-package dev.failures.main.Storage;
+package dev.failures.main.storage;
 
 public class Permissions {
     public static String FLY_PERMISSION = "core.fly";

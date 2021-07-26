@@ -1,12 +1,4 @@
-package dev.failures.main.Handlers;
-
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import dev.failures.main.GachaRPG;
-import org.bson.Document;
-import org.bukkit.entity.Player;
-
-import java.util.logging.Filter;
+package dev.failures.main.handlers;
 
 public class PlayerHandler {
     int playerLevel;
@@ -45,4 +37,7 @@ public class PlayerHandler {
         playerGold = playerGold + amount;
     }
 
+    public void setExp(double amount) { playerExperience = amount; }
+
+    public void addExp(double amount) { playerExperience = playerExperience + amount; }
 }

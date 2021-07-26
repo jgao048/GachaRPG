@@ -2,10 +2,10 @@ package dev.failures.main;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.failures.main.Commands.StatsCommand;
-import dev.failures.main.Listeners.MobDeathEvent;
-import dev.failures.main.Listeners.CreateProfileEvent;
-import dev.failures.main.Storage.MongoDB;
+import dev.failures.main.commands.StatsCommand;
+import dev.failures.main.listeners.MobDeathEvent;
+import dev.failures.main.listeners.CreateProfileEvent;
+import dev.failures.main.storage.MongoDB;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class GachaRPG extends JavaPlugin {
@@ -16,11 +16,11 @@ public final class GachaRPG extends JavaPlugin {
     @Override
     public void onEnable() {
         mongo = new MongoDB();
-        registerCommands();
-        registerListeners();
-
         instance = this;
         gson = new GsonBuilder().create();
+
+        registerCommands();
+        registerListeners();
         getLogger().info("GachaRPG has been enabled.");
 
     }
@@ -35,11 +35,11 @@ public final class GachaRPG extends JavaPlugin {
     }
 
     public void registerCommands() {
-        getCommand("stats").setExecutor(new StatsCommand(this, mongo.getCollection()));
+        getCommand("stats").setExecutor(new StatsCommand(this, mongo));
     }
 
     public void registerListeners() {
-        getServer().getPluginManager().registerEvents(new CreateProfileEvent(this, mongo.getCollection()), this);
+        getServer().getPluginManager().registerEvents(new CreateProfileEvent(this, mongo), this);
         getServer().getPluginManager().registerEvents(new MobDeathEvent(this), this);
     }
 }

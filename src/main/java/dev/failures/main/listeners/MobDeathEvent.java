@@ -1,9 +1,6 @@
-package dev.failures.main.Listeners;
+package dev.failures.main.listeners;
 
 import dev.failures.main.GachaRPG;
-import dev.failures.main.Handlers.PlayerHandler;
-import dev.failures.main.Storage.DataKeys;
-import dev.failures.main.Utils.PDUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;

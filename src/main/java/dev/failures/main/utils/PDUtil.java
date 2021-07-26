@@ -1,4 +1,4 @@
-package dev.failures.main.Utils;
+package dev.failures.main.utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

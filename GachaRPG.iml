@@ -22,12 +22,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:adventure-api:4.7.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:adventure-key:4.7.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:examination-api:1.1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:examination-string:1.1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.checkerframework:checker-qual:3.11.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:20.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:adventure-text-serializer-gson:4.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:adventure-text-serializer-legacy:4.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.kyori:adventure-text-serializer-plain:4.7.0" level="project" />
@@ -47,5 +41,11 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.ow2.asm:asm-analysis:9.0" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.12.9" level="project" />
     <orderEntry type="library" name="Maven: dev.triumphteam:triumph-gui:3.0.3" level="project" />
+    <orderEntry type="library" name="Maven: net.kyori:adventure-api:4.8.1" level="project" />
+    <orderEntry type="library" name="Maven: net.kyori:adventure-key:4.8.1" level="project" />
+    <orderEntry type="library" name="Maven: net.kyori:examination-api:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.checkerframework:checker-qual:3.10.0" level="project" />
+    <orderEntry type="library" name="Maven: net.kyori:examination-string:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:21.0.1" level="project" />
   </component>
 </module>

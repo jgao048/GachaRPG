@@ -1,4 +1,4 @@
-package dev.failures.main.Handlers;
+package dev.failures.main.handlers;
 
 import dev.failures.main.GachaRPG;
 import org.bukkit.Bukkit;
