@@ -1,7 +1,7 @@
 package dev.failures.main.listeners;
 
 import dev.failures.main.GachaRPG;
-import dev.failures.main.handlers.PlayerHandler;
+import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.storage.MongoDB;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class CreateProfileEvent implements Listener {
     @EventHandler
     private void playerJoin(AsyncPlayerPreLoginEvent e) {
         String pid = e.getUniqueId().toString();
-        PlayerHandler player = new PlayerHandler(1, 0, 100, 0);
+        PlayerData player = new PlayerData(1, 0, 100, 0);
         db.saveData(player, pid);
     }
 }

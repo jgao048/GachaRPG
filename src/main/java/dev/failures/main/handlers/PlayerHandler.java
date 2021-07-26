@@ -1,43 +1,34 @@
 package dev.failures.main.handlers;
 
-public class PlayerHandler {
-    int playerLevel;
-    double playerExperience;
-    double playerGold;
-    int skillPoints;
+import dev.failures.main.storage.MongoDB;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-    public PlayerHandler(int level, double exp, double gold, int sp) {
-        playerLevel = level;
-        playerExperience = exp;
-        playerGold = gold;
-        skillPoints = sp;
+import java.util.HashMap;
+
+public class PlayerHandler implements Listener {
+    private final HashMap<Player, PlayerData> onlinePlayerSaves = new HashMap<>();
+    MongoDB db;
+
+    public PlayerHandler(MongoDB db) {
+        this.db = db;
     }
 
-    public int getLevel() {
-        return playerLevel;
+    @EventHandler
+    private void addPlayer(PlayerJoinEvent e) {
+        onlinePlayerSaves.put(e.getPlayer(), db.getData(e.getPlayer()));
     }
 
-    public double getExp() {
-        return playerExperience;
+    @EventHandler
+    private void removePlayer(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        db.saveData(onlinePlayerSaves.remove(p),p.getUniqueId().toString());
     }
 
-    public double getGold() {
-        return playerGold;
+    public HashMap<Player, PlayerData> getOnlinePlayerSaves() {
+        return onlinePlayerSaves;
     }
-
-    public int getSkillPoints() {
-        return skillPoints;
-    }
-
-    public void setGold(double amount) {
-        playerGold = amount;
-    }
-
-    public void addGold(double amount) {
-        playerGold = playerGold + amount;
-    }
-
-    public void setExp(double amount) { playerExperience = amount; }
-
-    public void addExp(double amount) { playerExperience = playerExperience + amount; }
 }

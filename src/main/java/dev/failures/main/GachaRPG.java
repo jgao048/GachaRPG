@@ -3,15 +3,21 @@ package dev.failures.main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.failures.main.commands.StatsCommand;
+import dev.failures.main.handlers.PlayerData;
+import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.listeners.MobDeathEvent;
 import dev.failures.main.listeners.CreateProfileEvent;
 import dev.failures.main.storage.MongoDB;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
 
 public final class GachaRPG extends JavaPlugin {
     public static GachaRPG instance;
     public static Gson gson;
     private MongoDB mongo;
+    public static HashMap<Player, PlayerData> onlinePlayers;
 
     @Override
     public void onEnable() {
@@ -39,6 +45,8 @@ public final class GachaRPG extends JavaPlugin {
     }
 
     public void registerListeners() {
+        getServer().getPluginManager().registerEvents(new PlayerHandler(mongo), this);
+
         getServer().getPluginManager().registerEvents(new CreateProfileEvent(this, mongo), this);
         getServer().getPluginManager().registerEvents(new MobDeathEvent(this), this);
     }

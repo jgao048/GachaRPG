@@ -1,12 +1,10 @@
 package dev.failures.main.commands;
 
-import com.mongodb.client.MongoCollection;
 import dev.failures.main.GachaRPG;
-import dev.failures.main.handlers.PlayerHandler;
+import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.storage.MongoDB;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
-import org.bson.Document;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,7 +24,7 @@ public class StatsCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player p = (Player) sender;
 
-        PlayerHandler data = db.getData(p);
+        PlayerData data = db.getData(p);
 
         Gui statsGUI = Gui.gui()
                 .title(Component.text("&0Character Information"))
