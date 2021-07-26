@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 import dev.failures.main.commands.StatsCommand;
 import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.listeners.MobDeathEvent;
 import dev.failures.main.listeners.CreateProfileEvent;
+import dev.failures.main.listeners.LevelSystem;
 import dev.failures.main.storage.MongoDB;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,9 +45,9 @@ public final class GachaRPG extends JavaPlugin {
     }
 
     public void registerListeners() {
-        getServer().getPluginManager().registerEvents(new PlayerHandler(mongo), this);
-
+        PlayerHandler ph = new PlayerHandler(mongo);
+        getServer().getPluginManager().registerEvents(ph, this);
+        getServer().getPluginManager().registerEvents(new LevelSystem(this, ph), this);
         getServer().getPluginManager().registerEvents(new CreateProfileEvent(this, mongo), this);
-        getServer().getPluginManager().registerEvents(new MobDeathEvent(this), this);
     }
 }
