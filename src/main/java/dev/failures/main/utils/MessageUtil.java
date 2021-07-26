@@ -1,5 +1,6 @@
 package dev.failures.main.utils;
 
+import dev.failures.main.GachaRPG;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -59,6 +60,10 @@ public class MessageUtil {
 
     public static void sendNoPermission(Player p) {
         p.sendMessage(colorize("&fUnknown command. Type '/help' for help."));
+    }
+
+    public static void sendLog(String msg) {
+        GachaRPG.getInstance().getLogger().info(msg);
     }
 }
 

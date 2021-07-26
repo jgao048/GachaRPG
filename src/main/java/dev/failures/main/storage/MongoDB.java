@@ -8,10 +8,12 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerData;
+import dev.failures.main.utils.MessageUtil;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -32,7 +34,6 @@ public class MongoDB {
 
     public CompletableFuture<PlayerData> getData(Player p) {
         String pid = p.getUniqueId().toString();
-
         return CompletableFuture.supplyAsync(()->{
             String data = collection.find(Filters.eq("uuid", pid)).first().getString("data");
             return GachaRPG.gson.fromJson(data, PlayerData.class);

@@ -6,3 +6,6 @@ commands:
   stats:
     aliases: [info, class, level, stat]
     description: Opens player's character information
+  gold:
+    aliases: [g]
+    description: Displays current balance for player

@@ -2,6 +2,7 @@ package dev.failures.main.commands;
 
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerData;
+import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.storage.MongoDB;
 import dev.failures.main.utils.MessageUtil;
 import dev.triumphteam.gui.guis.Gui;
@@ -13,11 +14,11 @@ import org.bukkit.entity.Player;
 
 public class StatsCommand implements CommandExecutor {
     GachaRPG main;
-    MongoDB db;
+    PlayerHandler ph;
 
-    public StatsCommand(GachaRPG main, MongoDB db) {
+    public StatsCommand(GachaRPG main, PlayerHandler ph) {
         this.main = main;
-        this.db = db;
+        this.ph = ph;
     }
 
     @Override
@@ -25,13 +26,14 @@ public class StatsCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player p = (Player) sender;
 
-        //PlayerData data = db.getData(p);
+        PlayerData data = ph.getOnlinePlayerSaves().get(p);
 
         Gui statsGUI = Gui.gui()
                 .title(Component.text(MessageUtil.colorize("&0Character Information")))
                 .rows(6)
                 .create();
         statsGUI.setDefaultClickAction(event -> event.setCancelled(true));
+        statsGUI.addItem();
         statsGUI.open(p);
         return false;
     }

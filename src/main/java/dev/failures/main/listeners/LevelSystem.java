@@ -28,6 +28,7 @@ public class LevelSystem implements Listener {
         //ph.getOnlinePlayerSaves().put(p, data);
 
         ph.getOnlinePlayerSaves().get(p).addExp(100); //method 2
+        ph.getOnlinePlayerSaves().get(p).addGold(10);
 
     }
 }

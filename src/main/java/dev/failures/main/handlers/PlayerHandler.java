@@ -2,6 +2,7 @@ package dev.failures.main.handlers;
 
 import dev.failures.main.GachaRPG;
 import dev.failures.main.storage.MongoDB;
+import dev.failures.main.utils.MessageUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,12 +23,12 @@ public class PlayerHandler implements Listener {
 
     @EventHandler
     private void addPlayer(PlayerJoinEvent e) {
-        if(!e.getPlayer().hasPlayedBefore()) {
-            onlinePlayerSaves.put(e.getPlayer(), new PlayerData(1,0,100,0));
-            return;
-        }
         CompletableFuture<PlayerData> cf = db.getData(e.getPlayer());
         cf.whenComplete((resultSet, exception) -> {
+            if(resultSet == null) {
+                onlinePlayerSaves.put(e.getPlayer(), new PlayerData(1, 0, 100, 0));
+                return;
+            }
             onlinePlayerSaves.put(e.getPlayer(), resultSet);
         });
     }
