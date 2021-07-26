@@ -25,7 +25,7 @@ public class StatsCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player p = (Player) sender;
 
-        PlayerData data = db.getData(p);
+        //PlayerData data = db.getData(p);
 
         Gui statsGUI = Gui.gui()
                 .title(Component.text(MessageUtil.colorize("&0Character Information")))

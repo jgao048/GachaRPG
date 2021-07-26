@@ -23,9 +23,9 @@ public class LevelSystem implements Listener {
         Player p = e.getEntity().getKiller();
 
         //method 1
-        PlayerData data = ph.getOnlinePlayerSaves().get(p);
-        data.addExp(100);
-        ph.getOnlinePlayerSaves().put(p, data);
+        //PlayerData data = ph.getOnlinePlayerSaves().get(p);
+        //data.addExp(100);
+        //ph.getOnlinePlayerSaves().put(p, data);
 
         ph.getOnlinePlayerSaves().get(p).addExp(100); //method 2
 
