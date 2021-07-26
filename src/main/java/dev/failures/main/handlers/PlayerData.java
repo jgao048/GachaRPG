@@ -40,4 +40,8 @@ public class PlayerData {
     public void setExp(double amount) { playerExperience = amount; }
 
     public void addExp(double amount) { playerExperience = playerExperience + amount; }
+
+    public void setLevel(int amount) { playerLevel = amount; }
+
+    public void addLevel(int amount) { playerLevel = playerLevel + amount; }
 }

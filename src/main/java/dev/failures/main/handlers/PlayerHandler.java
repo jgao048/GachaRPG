@@ -23,13 +23,16 @@ public class PlayerHandler implements Listener {
 
     @EventHandler
     private void addPlayer(PlayerJoinEvent e) {
-        CompletableFuture<PlayerData> cf = db.getData(e.getPlayer());
+        Player p = e.getPlayer();
+        CompletableFuture<PlayerData> cf = db.getData(p);
         cf.whenComplete((resultSet, exception) -> {
             if(resultSet == null) {
-                onlinePlayerSaves.put(e.getPlayer(), new PlayerData(1, 0, 100, 0));
+                onlinePlayerSaves.put(p, new PlayerData(1, 0, 100, 0));
+                p.setLevel(1);
+                p.setExp(0);
                 return;
             }
-            onlinePlayerSaves.put(e.getPlayer(), resultSet);
+            onlinePlayerSaves.put(p, resultSet);
         });
     }
 
