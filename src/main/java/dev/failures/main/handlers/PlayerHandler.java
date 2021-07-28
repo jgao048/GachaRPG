@@ -32,11 +32,11 @@ public class PlayerHandler implements Listener {
             } else {
                 onlinePlayerSaves.put(p, resultSet);
             }
-            updatedPlayerStats(p);
+            updatePlayerStats(p);
         });
     }
 
-    private void updatedPlayerStats(Player p) {
+    public void updatePlayerStats(Player p) {
         int str = onlinePlayerSaves.get(p).getStr();
         double healthCalc = onlinePlayerSaves.get(p).getCurrentHealth();
         if(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() != healthCalc) {
