@@ -1,6 +1,7 @@
 package dev.failures.main.handlers;
 
 import dev.failures.main.storage.MongoDB;
+import dev.failures.main.storage.Values;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,12 +25,24 @@ public class PlayerHandler implements Listener {
         CompletableFuture<PlayerData> cf = db.getData(p);
         cf.whenComplete((resultSet, exception) -> {
             if(resultSet == null) {
-                onlinePlayerSaves.put(p, new PlayerData(1, 0, 100, 0));
+                p.sendMessage("null?");
+                onlinePlayerSaves.put(p, new PlayerData(1, 0, 100, 0, 10, 10, 10, 10));
                 p.setLevel(1);
                 p.setExp(0);
-                return;
+            } else {
+                onlinePlayerSaves.put(p, resultSet);
             }
-            onlinePlayerSaves.put(p, resultSet);
+
+            int str = onlinePlayerSaves.get(p).getStr();
+            double healthCalc = (str*Values.HEATLH_PER_STR) + 20;
+            if(p.getHealth() != healthCalc) p.setHealth(healthCalc);
+
+            p.sendMessage("Regen: " + p.getSaturatedRegenRate());
+            p.sendMessage("Speed: " + p.getWalkSpeed());
+
+            int mana = onlinePlayerSaves.get(p).getInt();
+            int speed = onlinePlayerSaves.get(p).getAgi();
+            int regen = onlinePlayerSaves.get(p).getVit();
         });
     }
 

@@ -1,16 +1,42 @@
 package dev.failures.main.handlers;
 
+import com.sun.java.swing.plaf.windows.WindowsTextAreaUI;
+
 public class PlayerData {
     int playerLevel;
     double playerExperience;
     double playerGold;
     int skillPoints;
+    int statStrength;
+    int statAgility;
+    int statIntelligence;
+    int statVitality;
 
-    public PlayerData(int level, double exp, double gold, int sp) {
+    public PlayerData(int level, double exp, double gold, int sp, int str, int agi, int intel, int vit) {
         playerLevel = level;
         playerExperience = exp;
         playerGold = gold;
         skillPoints = sp;
+        statStrength = str;
+        statAgility = agi;
+        statIntelligence = intel;
+        statVitality = vit;
+    }
+
+    public int getStr() {
+        return statStrength;
+    }
+
+    public int getInt() {
+        return statIntelligence;
+    }
+
+    public int getAgi() {
+        return statAgility;
+    }
+
+    public int getVit() {
+        return statVitality;
     }
 
     public int getLevel() {
@@ -48,4 +74,18 @@ public class PlayerData {
     public void setSkillPoints(int amount) { skillPoints = amount; }
 
     public void addSkillPoints(int amount) { skillPoints = skillPoints + amount; }
+
+    public void addStr(int amount) {
+        statStrength = statStrength + amount;
+    }
+
+    public void addAgi(int amount) {
+        statAgility = statAgility + amount;
+    }
+
+    public void addVit(int amount) { statVitality = statVitality + amount; }
+
+    public void addInt(int amount) { statIntelligence = statIntelligence + amount; }
+
+
 }

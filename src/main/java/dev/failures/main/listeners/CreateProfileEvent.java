@@ -23,7 +23,7 @@ public class CreateProfileEvent implements Listener {
             @Override
             public void run() {
                 if(db.getCollection().find(Filters.eq("uuid",pid)).first() == null) {
-                    PlayerData player = new PlayerData(1, 0, 100, 0);
+                    PlayerData player = new PlayerData(1, 0, 100, 0, 10, 10, 10, 10);
                     String playerJson = GachaRPG.gson.toJson(player);
                     Document playerData = new Document("uuid", pid).append("data", playerJson);
                     db.getCollection().insertOne(playerData);
