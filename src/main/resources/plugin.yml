@@ -9,3 +9,6 @@ commands:
   gold:
     aliases: [g]
     description: Displays current balance for player
+  party:
+    aliases: [p]
+    description: Party system for dank serber.

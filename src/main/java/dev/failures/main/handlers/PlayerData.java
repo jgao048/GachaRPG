@@ -44,4 +44,8 @@ public class PlayerData {
     public void setLevel(int amount) { playerLevel = amount; }
 
     public void addLevel(int amount) { playerLevel = playerLevel + amount; }
+
+    public void setSkillPoints(int amount) { skillPoints = amount; }
+
+    public void addSkillPoints(int amount) { skillPoints = skillPoints + amount; }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MessageUtil {
+public class ChatUtil {
     public static String colorize(String message){
         Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]){6}");
 
@@ -64,6 +64,10 @@ public class MessageUtil {
 
     public static void sendLog(String msg) {
         GachaRPG.getInstance().getLogger().info(msg);
+    }
+
+    public static void msg(Player p, String message) {
+        p.sendMessage(colorize(message));
     }
 }
 

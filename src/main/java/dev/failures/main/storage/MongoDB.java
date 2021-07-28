@@ -8,16 +8,11 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerData;
-import dev.failures.main.utils.MessageUtil;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.security.MessageDigest;
-import java.sql.ResultSet;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MongoDB {
     private final MongoCollection<Document> collection;

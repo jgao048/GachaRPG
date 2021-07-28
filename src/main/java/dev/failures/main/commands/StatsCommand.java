@@ -3,8 +3,7 @@ package dev.failures.main.commands;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.MongoDB;
-import dev.failures.main.utils.MessageUtil;
+import dev.failures.main.utils.ChatUtil;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
@@ -29,7 +28,7 @@ public class StatsCommand implements CommandExecutor {
         PlayerData data = ph.getOnlinePlayerSaves().get(p);
 
         Gui statsGUI = Gui.gui()
-                .title(Component.text(MessageUtil.colorize("&0Character Information")))
+                .title(Component.text(ChatUtil.colorize("&0Character Information")))
                 .rows(6)
                 .create();
         statsGUI.setDefaultClickAction(event -> event.setCancelled(true));

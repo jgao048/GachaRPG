@@ -1,15 +1,12 @@
 package dev.failures.main.handlers;
 
-import dev.failures.main.GachaRPG;
 import dev.failures.main.storage.MongoDB;
-import dev.failures.main.utils.MessageUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
