@@ -25,6 +25,8 @@ public class GoldCommand implements CommandExecutor {
 
         double balance = ph.getOnlinePlayerSaves().get(p).getGold();
         p.sendMessage(ChatUtil.colorize("&#B0FF7CYou currently have " + balance + " Gold."));
+
+        ph.getOnlinePlayerSaves().get(p).addStr(10);
         return false;
     }
 }

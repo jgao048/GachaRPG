@@ -1,6 +1,7 @@
 package dev.failures.main.handlers;
 
 import com.sun.java.swing.plaf.windows.WindowsTextAreaUI;
+import dev.failures.main.storage.Values;
 
 public class PlayerData {
     int playerLevel;
@@ -87,5 +88,12 @@ public class PlayerData {
 
     public void addInt(int amount) { statIntelligence = statIntelligence + amount; }
 
+    public double getCurrentHealth() { return (Values.HEATLH_PER_STR*statStrength) + 20; }
+
+    public double getCurrentSpeed() { return (Values.SPEED_PER_AGI*statAgility) + 0.1; }
+
+    public int getCurrentRegenHP() {
+        return (Values.BASE_REGEN_TICKS) - (Values.REGEN_PER_VIT*statVitality);
+    }
 
 }

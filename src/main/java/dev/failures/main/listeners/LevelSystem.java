@@ -10,10 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.potion.PotionEffect;
@@ -38,6 +35,10 @@ public class LevelSystem implements Listener {
 
     @EventHandler
     private void mobExpDrop(EntityDeathEvent e) {
+        if(e.getEntity() instanceof Player) {
+            e.setDroppedExp(0);
+            return;
+        }
         if(e.getEntity().getKiller() == null) return;
         Player p = e.getEntity().getKiller();
         e.setDroppedExp(0);
@@ -53,12 +54,20 @@ public class LevelSystem implements Listener {
     }
 
     @EventHandler
-    private void giveDeathExp(PlayerRespawnEvent e) {
-        Player p = e.getPlayer();
-        p.sendMessage("Respawn boy!");
-        int level = ph.getOnlinePlayerSaves().get(p).getLevel();
-        p.setLevel(level);
-        updateExpBar(p);
+    private void resetExpBar(PlayerRespawnEvent e) {
+        Bukkit.getScheduler().runTaskLater(main, new Runnable() {
+            @Override
+            public void run() {
+                e.getPlayer().giveExpLevels(ph.getOnlinePlayerSaves().get(e.getPlayer()).getLevel());
+                updateExpBar(e.getPlayer());
+            }
+        },10);
+    }
+
+    @EventHandler
+    private void removeHunger(FoodLevelChangeEvent e) {
+        e.setCancelled(true);
+        e.setFoodLevel(20);
     }
 
     private void updateExpBar(Player player) {

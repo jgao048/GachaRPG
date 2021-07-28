@@ -2,6 +2,7 @@ package dev.failures.main.handlers;
 
 import dev.failures.main.storage.MongoDB;
 import dev.failures.main.storage.Values;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,25 +26,35 @@ public class PlayerHandler implements Listener {
         CompletableFuture<PlayerData> cf = db.getData(p);
         cf.whenComplete((resultSet, exception) -> {
             if(resultSet == null) {
-                p.sendMessage("null?");
                 onlinePlayerSaves.put(p, new PlayerData(1, 0, 100, 0, 10, 10, 10, 10));
                 p.setLevel(1);
                 p.setExp(0);
             } else {
                 onlinePlayerSaves.put(p, resultSet);
             }
-
-            int str = onlinePlayerSaves.get(p).getStr();
-            double healthCalc = (str*Values.HEATLH_PER_STR) + 20;
-            if(p.getHealth() != healthCalc) p.setHealth(healthCalc);
-
-            p.sendMessage("Regen: " + p.getSaturatedRegenRate());
-            p.sendMessage("Speed: " + p.getWalkSpeed());
-
-            int mana = onlinePlayerSaves.get(p).getInt();
-            int speed = onlinePlayerSaves.get(p).getAgi();
-            int regen = onlinePlayerSaves.get(p).getVit();
+            updatedPlayerStats(p);
         });
+    }
+
+    private void updatedPlayerStats(Player p) {
+        int str = onlinePlayerSaves.get(p).getStr();
+        double healthCalc = onlinePlayerSaves.get(p).getCurrentHealth();
+        if(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() != healthCalc) {
+            p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(healthCalc);
+        }
+
+        int agi = onlinePlayerSaves.get(p).getAgi();
+        double speedCalc = getOnlinePlayerSaves().get(p).getCurrentSpeed();
+        if(p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() != speedCalc) {
+            p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speedCalc);
+        }
+
+        int mana = onlinePlayerSaves.get(p).getInt();
+
+        int regen = onlinePlayerSaves.get(p).getVit();
+        int regenCalc = getOnlinePlayerSaves().get(p).getCurrentRegenHP();
+        if(p.getUnsaturatedRegenRate() != regenCalc) p.setUnsaturatedRegenRate(regenCalc);
+        if(p.getSaturatedRegenRate() != regenCalc) p.setSaturatedRegenRate(regenCalc); //don't know why this isn't used but ill set in case :)
     }
 
     @EventHandler
