@@ -1,6 +1,7 @@
 package dev.failures.main.commands;
 
 import dev.failures.main.GachaRPG;
+import dev.failures.main.handlers.GachaHandler;
 import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.utils.ChatUtil;
 import org.bukkit.command.Command;
@@ -27,6 +28,7 @@ public class GoldCommand implements CommandExecutor {
         p.sendMessage(ChatUtil.colorize("&#B0FF7CYou currently have " + balance + " Gold."));
 
         ph.getOnlinePlayerSaves().get(p).addStr(10);
+        GachaHandler.randomizeRewards(p);
         return false;
     }
 }

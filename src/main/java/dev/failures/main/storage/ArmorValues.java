@@ -1,15 +1,16 @@
 package dev.failures.main.storage;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum ArmorValues {
-    DIAMOND_HELMET(3,1,1,1, 1),
-    DIAMOND_CHEST(3,1,1,1, 3),
-    DIAMOND_LEG(3,1,1,1, 1),
-    DIAMOND_BOOT(3,1,1,1, 1),
+    DIAMOND_HELMET(3,-2,-2,2, 1),
+    DIAMOND_CHEST(3,-2,-2,2, 1),
+    DIAMOND_LEG(3,-2,-2,2, 1),
+    DIAMOND_BOOT(3,-2,-2,2, 1),
 
     GOLD_HELMET(1,1,1,3, 1),
     GOLD_CHEST(1,1,1,3, 1),
@@ -28,14 +29,14 @@ public enum ArmorValues {
 
     private int str;
     private int agi;
-    private int inte;
+    private int intel;
     private int vit;
     private int level;
 
-    ArmorValues(int str, int agi, int inte, int vit, int level) {
+    ArmorValues(int str, int agi, int intel, int vit, int level) {
         this.str = str;
         this.agi = agi;
-        this.inte = inte;
+        this.intel = intel;
         this.vit = vit;
         this.level = level;
     }
@@ -68,9 +69,17 @@ public enum ArmorValues {
         HashMap<String, Integer> values = new HashMap<>();
         values.put("str", armor.str);
         values.put("agi", armor.agi);
-        values.put("inte", armor.inte);
+        values.put("inte", armor.intel);
         values.put("vit", armor.vit);
         values.put("level", armor.level);
         return values;
+    }
+
+    public static String getMainStat(ItemStack item) {
+        if(item.getType().toString().contains("DIAMOND")) return "str";
+        else if(item.getType().toString().contains("GOLDEN")) return "vit";
+        else if(item.getType().toString().contains("IRON")) return "agi";
+        else if(item.getType().toString().contains("LEATHER")) return "intel";
+        return "none";
     }
 }
