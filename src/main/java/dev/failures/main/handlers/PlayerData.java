@@ -1,7 +1,12 @@
 package dev.failures.main.handlers;
 
-import com.sun.java.swing.plaf.windows.WindowsTextAreaUI;
-import dev.failures.main.storage.Values;
+import dev.failures.main.GachaRPG;
+import dev.failures.main.storage.GUIValues;
+import dev.failures.main.storage.StatValues;
+import dev.failures.main.utils.PDUtil;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerData {
     int playerLevel;
@@ -88,12 +93,48 @@ public class PlayerData {
 
     public void addInt(int amount) { statIntelligence = statIntelligence + amount; }
 
-    public double getCurrentHealth() { return (Values.HEATLH_PER_STR*statStrength) + 20; }
+    public double getCurrentHealth() { return (StatValues.HEATLH_PER_STR*statStrength) + 20; }
 
-    public double getCurrentSpeed() { return (Values.SPEED_PER_AGI*statAgility) + 0.1; }
+    public double getCurrentSpeed() { return (StatValues.SPEED_PER_AGI*statAgility) + 0.1; }
 
     public int getCurrentRegenHP() {
-        return (Values.BASE_REGEN_TICKS) - (Values.REGEN_PER_VIT*statVitality);
+        return (StatValues.BASE_REGEN_TICKS) - (StatValues.REGEN_PER_VIT*statVitality);
+    }
+
+    public void resetSkillPoints(Player p) {
+        int refund = skillPoints;
+
+        PDUtil itemStr = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "strength"));
+        PDUtil itemAgi = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "agility"));
+        PDUtil itemInt = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "intelligence"));
+        PDUtil itemVit = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "vitality"));
+
+        int strHas = 10;
+        int agiHas = 10;
+        int intHas = 10;
+        int vitHas = 10;
+
+        for(ItemStack armor: p.getInventory().getArmorContents()) {
+            if(armor == null) continue;
+            strHas += itemStr.getItemDataInteger(armor);
+            agiHas += itemAgi.getItemDataInteger(armor);
+            intHas += itemInt.getItemDataInteger(armor);
+            vitHas += itemVit.getItemDataInteger(armor);
+        }
+
+        refund += statStrength - strHas;
+        statStrength = strHas;
+
+        refund += statAgility - agiHas;
+        statAgility = agiHas;
+
+        refund += statIntelligence - intHas;
+        statIntelligence = intHas;
+
+        refund += statVitality - vitHas;
+        statVitality = vitHas;
+
+        setSkillPoints(refund);
     }
 
 }

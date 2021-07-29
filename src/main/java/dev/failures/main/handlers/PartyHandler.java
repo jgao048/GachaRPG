@@ -1,6 +1,5 @@
 package dev.failures.main.handlers;
 
-import dev.failures.main.storage.Values;
 import dev.failures.main.utils.ChatUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

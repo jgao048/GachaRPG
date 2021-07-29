@@ -1,7 +1,6 @@
 package dev.failures.main.handlers;
 
 import dev.failures.main.storage.MongoDB;
-import dev.failures.main.storage.Values;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

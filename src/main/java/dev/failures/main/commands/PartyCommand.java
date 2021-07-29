@@ -4,11 +4,11 @@ import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.Values;
+import dev.failures.main.storage.GUIValues;
+import dev.failures.main.storage.StatValues;
 import dev.failures.main.utils.ChatUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
-import dev.triumphteam.gui.guis.GuiItem;
 import dev.triumphteam.gui.guis.PaginatedGui;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -18,7 +18,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class PartyCommand implements CommandExecutor{
             if(!checkHasParty(p, hasParty)) return false;
             if(!checkHasPermission(p, isLeader)) return false;
             if(!checkIfPlayer(p, args[1])) return false;
-            if(partyh.getPartySize(p) >= Values.MAX_PARTY_SIZE) {
+            if(partyh.getPartySize(p) >= StatValues.MAX_PARTY_SIZE) {
                 p.sendMessage(ChatUtil.colorize("&7Your party is full."));
                 return false;
             }
@@ -171,21 +170,20 @@ public class PartyCommand implements CommandExecutor{
                 .title(Component.text(ChatUtil.colorize("&0Party Menu")))
                 .rows(6)
                 .create();
-        GuiItem onlineMembers = ItemBuilder.skull()
+
+        partyMenu.setItem(1, 1, ItemBuilder.skull()
                 .name(Component.text(ChatUtil.colorize("&aRecruit Members")))
+                .texture(GUIValues.recruitHead)
                 .asGuiItem(event -> {
                     onlineMembersGUI(p);
-                });
-        GuiItem partyMembers = ItemBuilder.skull()
+                }));
+        partyMenu.setItem(1, 2, ItemBuilder.skull()
                 .name(Component.text(ChatUtil.colorize("&aParty Members")))
                 .owner(p)
                 .asGuiItem(event -> {
                     onlinePartyGUI(p);
-                });
+                }));
 
-
-        partyMenu.setItem(1, 1, onlineMembers);
-        partyMenu.setItem(1, 2, partyMembers);
         partyMenu.setDefaultClickAction(event -> event.setCancelled(true));
         partyMenu.open(p);
     }

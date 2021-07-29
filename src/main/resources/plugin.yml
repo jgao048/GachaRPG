@@ -1,6 +1,7 @@
 name: GachaRPG
 version: ${project.version}
 main: dev.failures.main.GachaRPG
+softdepend: ['Multiverse-Core']
 api-version: 1.16
 commands:
   stats:
