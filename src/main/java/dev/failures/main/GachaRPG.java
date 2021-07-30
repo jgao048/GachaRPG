@@ -3,10 +3,7 @@ package dev.failures.main;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.failures.main.armorequip.ArmorListener;
-import dev.failures.main.commands.AdminCommand;
-import dev.failures.main.commands.GoldCommand;
-import dev.failures.main.commands.PartyCommand;
-import dev.failures.main.commands.StatsCommand;
+import dev.failures.main.commands.*;
 import dev.failures.main.handlers.CustomItemHandler;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerHandler;
@@ -31,7 +28,6 @@ public final class GachaRPG extends JavaPlugin {
         playerHandler = new PlayerHandler(mongo);
         PartyHandler partyHandler = new PartyHandler();
         CustomItemHandler.createRecipes();
-
         registerCommands(playerHandler, partyHandler);
         registerListeners(playerHandler, partyHandler);
         getLogger().info("GachaRPG has been enabled.");
@@ -55,6 +51,10 @@ public final class GachaRPG extends JavaPlugin {
         getCommand("gold").setExecutor(new GoldCommand(this, playerHandler));
         getCommand("party").setExecutor(new PartyCommand(this, playerHandler, partyHandler));
         getCommand("admin").setExecutor(new AdminCommand(playerHandler));
+
+        getCommand("skull").setExecutor(new SkullCommand());
+        getCommand("rename").setExecutor(new RenameCommand());
+        getCommand("lore").setExecutor(new LoreCommand());
     }
 
     public void registerListeners(PlayerHandler playerHandler, PartyHandler partyHandler) {

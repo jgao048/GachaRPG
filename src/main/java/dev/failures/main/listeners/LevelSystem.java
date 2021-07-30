@@ -74,7 +74,7 @@ public class LevelSystem implements Listener {
             ph.getOnlinePlayerSaves().get(player).addLevel(1);
             ph.getOnlinePlayerSaves().get(player).setExp(remainder);
             ph.getOnlinePlayerSaves().get(player).addSkillPoints(1);
-            player.sendTitle(ChatUtil.colorize("&aLEVEL UP!"), ChatUtil.colorize("&7You have gained a skill point"), 10, 40,20);
+            player.sendTitle(ChatUtil.colorize("&a&lLEVEL UP!"), ChatUtil.colorize("&7You have gained a skill point"), 10, 40,20);
         } else {
             int expMinecraft = player.getExpToLevel();
             double percent = currentExp / expNeeded;

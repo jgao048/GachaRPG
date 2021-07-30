@@ -67,9 +67,13 @@ public class ChatUtil {
     public static List<Component> getListComponent(List<String> lore) {
         List<Component> componentLore = new ArrayList<>();
         for(String l : lore) {
-            componentLore.add(Component.text(l));
+            componentLore.add(Component.text(colorize(l)));
         }
         return componentLore;
+    }
+
+    public static Component text(String string) {
+        return Component.text(colorize(string));
     }
 
     public static void sendLog(String msg) {

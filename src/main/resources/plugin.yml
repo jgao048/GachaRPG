@@ -16,3 +16,11 @@ commands:
   admin:
     aliases: [gacha]
     description: admin command :)
+  lore:
+    aliases: [relore]
+    description: Relores items
+  rename:
+    description: Renames items
+  skull:
+    aliases: [head]
+    description: Gives player head

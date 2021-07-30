@@ -29,10 +29,10 @@ public class GachaHandler {
     private static ItemStack createPerfectArmor(Material material, int level) {
         ItemStack createdArmor = new ItemStack(material);
 
-        int baseStr = ArmorValues.getBaseStats(createdArmor.getType()).get("str");
-        int baseAgi = ArmorValues.getBaseStats(createdArmor.getType()).get("agi");
-        int baseInt = ArmorValues.getBaseStats(createdArmor.getType()).get("intel");
-        int baseVit = ArmorValues.getBaseStats(createdArmor.getType()).get("vit");
+        int baseStr = ArmorValues.getArmorValues(createdArmor.getType()).getStr();
+        int baseAgi = ArmorValues.getArmorValues(createdArmor.getType()).getAgi();
+        int baseInt = ArmorValues.getArmorValues(createdArmor.getType()).getIntel();
+        int baseVit = ArmorValues.getArmorValues(createdArmor.getType()).getVit();
 
         if(ArmorValues.getMainStat(createdArmor).equalsIgnoreCase("str")) baseStr += level-1;
         else if(ArmorValues.getMainStat(createdArmor).equalsIgnoreCase("agi")) baseAgi += level-1;
