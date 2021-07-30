@@ -2,6 +2,10 @@
 .idea/
 *.ipr
 *.iws
+*.prefs
+.classpath
+.project
+.vscode/
 
 # IntelliJ
 out/
