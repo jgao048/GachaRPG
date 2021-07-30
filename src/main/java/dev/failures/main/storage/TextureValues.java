@@ -1,6 +1,6 @@
 package dev.failures.main.storage;
 
-public class GUIValues {
+public class TextureValues {
     public static String recruitHead = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzMzZGNmYjRkYTEwMTc3MjY0OTY4YjQ0OWU3MjRhZGViZWUzYmMzM2I3MmJhZTg1ODQyYjRhYWI5YmQ5YzRkYiJ9fX0=";
     public static String emptyHead = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjliYTdmZWY2YTFhOGJkODk5YWJhZTRhNWI1NGNiMGVjZTUzYmFkYzY3N2MxNjY4YmVlMGE0NjIxYTgifX19";
     public static String resetHead = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWQwNjEzNjZmZDczNzU0ZWRhYTUyODhjNWY3NzFiOTYyZTA1YTNhN2IyZDYzMjUzNjBjNGJkYTliYmQzYzQwYSJ9fX0=";
@@ -10,5 +10,4 @@ public class GUIValues {
     public static String agiHead = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWEwZWYyMDNhM2MzODM3ZmQ0YTEwZTFjM2YxOWNjNDBlNjQ5N2NiOWI5NzgwNzRkNDcyYzY1ZDQ4MmY2YjY3MyJ9fX0=";
     public static String vitHead = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDljNTk1NjEzMDM0YTA5NTk4OTQxZTBmMzUwMDc2MzZjNzQwMDk5ZDZiYjc2MTgxZDA5YWVlMWJlZDFlMjFmNCJ9fX0=";
     public static String spUpgrade = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWRhMDI3NDc3MTk3YzZmZDdhZDMzMDE0NTQ2ZGUzOTJiNGE1MWM2MzRlYTY4YzhiN2JjYzAxMzFjODNlM2YifX19";
-    public static String PROTECTION_COLOR = "&6";
 }

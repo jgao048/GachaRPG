@@ -2,6 +2,7 @@ package dev.failures.main.listeners;
 
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PartyHandler;
+import dev.failures.main.storage.MessageValues;
 import dev.failures.main.utils.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,31 +13,29 @@ import java.util.ArrayList;
 
 public class PartyListeners implements Listener {
     private GachaRPG main;
-    private PartyHandler ph;
+    private PartyHandler partyHandler;
 
-    public PartyListeners(GachaRPG main, PartyHandler ph) {
+    public PartyListeners(GachaRPG main, PartyHandler partyHandler) {
         this.main = main;
-        this.ph = ph;
+        this.partyHandler = partyHandler;
     }
 
     @EventHandler
     private void partyMemberQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        boolean hasParty = ph.hasParty(p);
-        boolean isLeader = ph.isLeader(p);
-        if(isLeader) {
-            ArrayList<Player> members = ph.getParties().remove(p);
+        if(partyHandler.isLeader(p)) {
+            ArrayList<Player> members = partyHandler.getParties().remove(p);
             for(Player member: members) {
                 if(p.equals(member)) continue;
-                member.sendMessage(ChatUtil.colorize("&7Your leader has disconnected, party has been disbanded."));
-                ph.getLeaders().remove(member);
+                member.sendMessage(MessageValues.LEADER_LEAVE);
+                partyHandler.getLeaders().remove(member);
             }
-        } else if(hasParty) {
-            Player leader = ph.getLeader(p);
-            ArrayList<Player> members = ph.getPartyMembers(leader);
-            ph.removePartyMember(p);
+        } else if(partyHandler.hasParty(p)) {
+            Player leader = partyHandler.getLeader(p);
+            ArrayList<Player> members = partyHandler.getPartyMembers(leader);
+            partyHandler.removePartyMember(p);
             for(Player member : members) {
-                member.sendMessage(ChatUtil.colorize("&f" + p.getName() + " &7has logged off and kicked from the party."));
+                member.sendMessage(MessageValues.PLAYER_LEAVE.replace("%name%", p.getName()));
             }
         }
     }

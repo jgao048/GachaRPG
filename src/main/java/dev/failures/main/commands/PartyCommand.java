@@ -4,8 +4,8 @@ import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerData;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.GUIValues;
-import dev.failures.main.storage.StatValues;
+import dev.failures.main.storage.TextureValues;
+import dev.failures.main.storage.GameValues;
 import dev.failures.main.utils.ChatUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
@@ -64,7 +64,7 @@ public class PartyCommand implements CommandExecutor{
             if(!checkHasParty(p, hasParty)) return false;
             if(!checkHasPermission(p, isLeader)) return false;
             if(!checkIfPlayer(p, args[1])) return false;
-            if(partyh.getPartySize(p) >= StatValues.MAX_PARTY_SIZE) {
+            if(partyh.getPartySize(p) >= GameValues.MAX_PARTY_SIZE) {
                 p.sendMessage(ChatUtil.colorize("&7Your party is full."));
                 return false;
             }
@@ -173,7 +173,7 @@ public class PartyCommand implements CommandExecutor{
 
         partyMenu.setItem(1, 1, ItemBuilder.skull()
                 .name(Component.text(ChatUtil.colorize("&aRecruit Members")))
-                .texture(GUIValues.recruitHead)
+                .texture(TextureValues.recruitHead)
                 .asGuiItem(event -> {
                     onlineMembersGUI(p);
                 }));
@@ -252,7 +252,9 @@ public class PartyCommand implements CommandExecutor{
         PlayerData pData = ph.getOnlinePlayerSaves().get(p);
         lore.add(Component.text(ChatUtil.colorize("&7Level:&f " + pData.getLevel())));
         lore.add(Component.text(ChatUtil.colorize("&7Exp:&f " + pData.getExp())));
-        lore.add(Component.text(ChatUtil.colorize("&7Gold:&f " + pData.getGold())));
+        lore.add(Component.text(ChatUtil.colorize("&7Strength:&f " + pData.getStr())));
+        lore.add(Component.text(ChatUtil.colorize("&7Agility:&f" + pData.getAgi())));
+        lore.add(Component.text(ChatUtil.colorize("&7Intelligence:&f" + pData.getInt())));
         return lore;
     }
 }

@@ -3,8 +3,7 @@ package dev.failures.main.listeners;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.armorequip.ArmorEquipEvent;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.ArmorValues;
-import dev.failures.main.storage.NamespacedKeys;
+import dev.failures.main.storage.DataKeys;
 import dev.failures.main.utils.ChatUtil;
 import dev.failures.main.utils.PDUtil;
 import org.bukkit.Material;
@@ -82,14 +81,9 @@ public class ItemEquipSystem implements Listener {
 
 
     private void getSetValues(ItemStack item, Player p, Integer modifier) {
-        PDUtil itemStr = new PDUtil(NamespacedKeys.STRENGTH);
-        PDUtil itemAgi = new PDUtil(NamespacedKeys.AGILITY);
-        PDUtil itemInt = new PDUtil(NamespacedKeys.INTELLIGENCE);
-        PDUtil itemVit = new PDUtil(NamespacedKeys.VITALITY);
-
-        playerHandler.getOnlinePlayerSaves().get(p).addStr(itemStr.getItemDataInteger(item) * modifier);
-        playerHandler.getOnlinePlayerSaves().get(p).addAgi(itemAgi.getItemDataInteger(item) * modifier);
-        playerHandler.getOnlinePlayerSaves().get(p).addInt(itemInt.getItemDataInteger(item) * modifier);
-        playerHandler.getOnlinePlayerSaves().get(p).addVit(itemVit.getItemDataInteger(item) * modifier);
+        playerHandler.getOnlinePlayerSaves().get(p).addStr(DataKeys.getStrength(item) * modifier);
+        playerHandler.getOnlinePlayerSaves().get(p).addAgi(DataKeys.getAgility(item) * modifier);
+        playerHandler.getOnlinePlayerSaves().get(p).addInt(DataKeys.getIntel(item) * modifier);
+        playerHandler.getOnlinePlayerSaves().get(p).addVit(DataKeys.getVitality(item) * modifier);
     }
 }

@@ -1,6 +1,6 @@
 package dev.failures.main.storage;
 
-public class StatValues {
+public class GameValues {
     public static double BASE_EXP_NEEDED = 20;
     public static double EXP_GROWTH = 1.2;
     public static double EXP_DROP = 10;

@@ -6,7 +6,7 @@ import dev.failures.main.armorequip.ArmorListener;
 import dev.failures.main.commands.GoldCommand;
 import dev.failures.main.commands.PartyCommand;
 import dev.failures.main.commands.StatsCommand;
-import dev.failures.main.handlers.CustomRecipeHandler;
+import dev.failures.main.handlers.CustomItemHandler;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.listeners.*;
@@ -29,7 +29,7 @@ public final class GachaRPG extends JavaPlugin {
         gson = new GsonBuilder().create();
         ph = new PlayerHandler(mongo);
         PartyHandler partyHandler = new PartyHandler();
-        CustomRecipeHandler.createRecipes();
+        CustomItemHandler.createRecipes();
 
         registerCommands(ph, partyHandler);
         registerListeners(ph, partyHandler);

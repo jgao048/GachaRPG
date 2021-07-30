@@ -1,8 +1,7 @@
 package dev.failures.main.handlers;
 
 import dev.failures.main.GachaRPG;
-import dev.failures.main.storage.GUIValues;
-import dev.failures.main.storage.StatValues;
+import dev.failures.main.storage.GameValues;
 import dev.failures.main.utils.PDUtil;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -93,12 +92,12 @@ public class PlayerData {
 
     public void addInt(int amount) { statIntelligence = statIntelligence + amount; }
 
-    public double getCurrentHealth() { return (StatValues.HEATLH_PER_STR*statStrength) + 20; }
+    public double getCurrentHealth() { return (GameValues.HEATLH_PER_STR*statStrength) + 20; }
 
-    public double getCurrentSpeed() { return (StatValues.SPEED_PER_AGI*statAgility) + 0.1; }
+    public double getCurrentSpeed() { return (GameValues.SPEED_PER_AGI*statAgility) + 0.1; }
 
     public int getCurrentRegenHP() {
-        return (StatValues.BASE_REGEN_TICKS) - (StatValues.REGEN_PER_VIT*statVitality);
+        return (GameValues.BASE_REGEN_TICKS) - (GameValues.REGEN_PER_VIT*statVitality);
     }
 
     public void resetSkillPoints(Player p) {

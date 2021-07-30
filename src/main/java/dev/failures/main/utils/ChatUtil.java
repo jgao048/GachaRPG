@@ -1,9 +1,11 @@
 package dev.failures.main.utils;
 
 import dev.failures.main.GachaRPG;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +62,14 @@ public class ChatUtil {
 
     public static void sendNoPermission(Player p) {
         p.sendMessage(colorize("&fUnknown command. Type '/help' for help."));
+    }
+
+    public static List<Component> getListComponent(List<String> lore) {
+        List<Component> componentLore = new ArrayList<>();
+        for(String l : lore) {
+            componentLore.add(Component.text(l));
+        }
+        return componentLore;
     }
 
     public static void sendLog(String msg) {

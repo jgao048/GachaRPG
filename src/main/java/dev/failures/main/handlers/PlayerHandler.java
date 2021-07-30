@@ -1,6 +1,8 @@
 package dev.failures.main.handlers;
 
+import dev.failures.main.storage.GameValues;
 import dev.failures.main.storage.MongoDB;
+import dev.failures.main.utils.ChatUtil;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,8 +21,9 @@ public class PlayerHandler implements Listener {
         this.db = db;
     }
 
+
     @EventHandler
-    private void addPlayer(PlayerJoinEvent e) {
+    private void addPlayerToOnlineSave(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         CompletableFuture<PlayerData> cf = db.getData(p);
         cf.whenComplete((resultSet, exception) -> {
@@ -33,6 +36,16 @@ public class PlayerHandler implements Listener {
             }
             updatePlayerStats(p);
         });
+    }
+
+    @EventHandler
+    private void savePlayerToDatabase(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        db.saveData(onlinePlayerSaves.remove(p),p.getUniqueId().toString());
+    }
+
+    public HashMap<Player, PlayerData> getOnlinePlayerSaves() {
+        return onlinePlayerSaves;
     }
 
     public void updatePlayerStats(Player p) {
@@ -56,13 +69,26 @@ public class PlayerHandler implements Listener {
         if(p.getSaturatedRegenRate() != regenCalc) p.setSaturatedRegenRate(regenCalc); //don't know why this isn't used but ill set in case :)
     }
 
-    @EventHandler
-    private void removePlayer(PlayerQuitEvent e) {
-        Player p = e.getPlayer();
-        db.saveData(onlinePlayerSaves.remove(p),p.getUniqueId().toString());
-    }
+    public void updatePlayerExp(Player player) {
+        int currentLevel = onlinePlayerSaves.get(player).getLevel();
+        double currentExp = onlinePlayerSaves.get(player).getExp();
+        double expNeeded = GameValues.BASE_EXP_NEEDED * Math.pow(GameValues.EXP_GROWTH,currentLevel-1);
 
-    public HashMap<Player, PlayerData> getOnlinePlayerSaves() {
-        return onlinePlayerSaves;
+        if(currentExp >= expNeeded) {
+            int remainder = (int) (currentExp - expNeeded);
+            int newLevel = currentLevel+1;
+            player.setLevel(newLevel);
+            player.setExp(0);
+            onlinePlayerSaves.get(player).addLevel(1);
+            onlinePlayerSaves.get(player).setExp(remainder);
+            onlinePlayerSaves.get(player).addSkillPoints(1);
+            player.sendTitle(ChatUtil.colorize("&aLEVEL UP!"), ChatUtil.colorize("&7You have gained a skill point"), 10, 40,20);
+        } else {
+            int expMinecraft = player.getExpToLevel();
+            double percent = currentExp / expNeeded;
+
+            int roundedExp = (int) Math.round(expMinecraft * percent);
+            player.setExp((float) percent);
+        }
     }
 }

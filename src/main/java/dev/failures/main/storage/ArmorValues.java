@@ -3,8 +3,9 @@ package dev.failures.main.storage;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public enum ArmorValues {
     DIAMOND_HELMET(3,-2,-2,2, 1),
@@ -27,11 +28,12 @@ public enum ArmorValues {
     LEATHER_LEG(1,1,3,1, 1),
     LEATHER_BOOT(1,1,3,1, 1);
 
-    private int str;
-    private int agi;
-    private int intel;
-    private int vit;
-    private int level;
+    private static final List<Material> armors = Arrays.asList(Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS, Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS, Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_BOOTS, Material.IRON_LEGGINGS, Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS);
+    private final int str;
+    private final int agi;
+    private final int intel;
+    private final int vit;
+    private final int level;
 
     ArmorValues(int str, int agi, int intel, int vit, int level) {
         this.str = str;
@@ -69,7 +71,7 @@ public enum ArmorValues {
         HashMap<String, Integer> values = new HashMap<>();
         values.put("str", armor.str);
         values.put("agi", armor.agi);
-        values.put("inte", armor.intel);
+        values.put("intel", armor.intel);
         values.put("vit", armor.vit);
         values.put("level", armor.level);
         return values;
@@ -81,5 +83,9 @@ public enum ArmorValues {
         else if(item.getType().toString().contains("IRON")) return "agi";
         else if(item.getType().toString().contains("LEATHER")) return "intel";
         return "none";
+    }
+
+    public static List<Material> getArmors() {
+        return armors;
     }
 }

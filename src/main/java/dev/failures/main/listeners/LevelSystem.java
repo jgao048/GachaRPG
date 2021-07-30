@@ -3,8 +3,7 @@ package dev.failures.main.listeners;
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.GUIValues;
-import dev.failures.main.storage.StatValues;
+import dev.failures.main.storage.GameValues;
 import dev.failures.main.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -36,11 +35,11 @@ public class LevelSystem implements Listener {
         e.setDroppedExp(0);
 
         for(Player partyMem : partyH.getNearbyMembers(p,10,e.getEntity())) {
-            ph.getOnlinePlayerSaves().get(partyMem).addExp(StatValues.EXP_DROP * StatValues.EXP_SHARED);
+            ph.getOnlinePlayerSaves().get(partyMem).addExp(GameValues.EXP_DROP * GameValues.EXP_SHARED);
             updateExpBar(partyMem);
         }
 
-        ph.getOnlinePlayerSaves().get(p).addExp(StatValues.EXP_DROP);
+        ph.getOnlinePlayerSaves().get(p).addExp(GameValues.EXP_DROP);
         ph.getOnlinePlayerSaves().get(p).addGold(10);
         updateExpBar(p);
     }
@@ -65,7 +64,7 @@ public class LevelSystem implements Listener {
     private void updateExpBar(Player player) {
         int currentLevel = ph.getOnlinePlayerSaves().get(player).getLevel();
         double currentExp = ph.getOnlinePlayerSaves().get(player).getExp();
-        double expNeeded = StatValues.BASE_EXP_NEEDED * Math.pow(StatValues.EXP_GROWTH,currentLevel-1);
+        double expNeeded = GameValues.BASE_EXP_NEEDED * Math.pow(GameValues.EXP_GROWTH,currentLevel-1);
 
         if(currentExp >= expNeeded) {
             int remainder = (int) (currentExp - expNeeded);
