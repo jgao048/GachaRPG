@@ -13,3 +13,6 @@ commands:
   party:
     aliases: [p]
     description: Party system for dank serber.
+  admin:
+    aliases: [gacha]
+    description: admin command :)

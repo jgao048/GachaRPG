@@ -33,6 +33,9 @@ public class PlayerHandler implements Listener {
                 p.setExp(0);
             } else {
                 onlinePlayerSaves.put(p, resultSet);
+                p.setLevel(onlinePlayerSaves.get(p).getLevel());
+                updatePlayerExp(p);
+                p.damage(0);
             }
             updatePlayerStats(p);
         });
@@ -84,6 +87,7 @@ public class PlayerHandler implements Listener {
             onlinePlayerSaves.get(player).addSkillPoints(1);
             player.sendTitle(ChatUtil.colorize("&aLEVEL UP!"), ChatUtil.colorize("&7You have gained a skill point"), 10, 40,20);
         } else {
+            player.setLevel(currentLevel);
             int expMinecraft = player.getExpToLevel();
             double percent = currentExp / expNeeded;
 

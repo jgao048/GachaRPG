@@ -84,13 +84,21 @@ public class PlayerData {
         statStrength = statStrength + amount;
     }
 
+    public void setStr(int amount) { statStrength = amount; }
+
     public void addAgi(int amount) {
         statAgility = statAgility + amount;
     }
 
+    public void setAgi(int amount) { statAgility = amount; }
+
     public void addVit(int amount) { statVitality = statVitality + amount; }
 
+    public void setVit(int amount) { statVitality = amount; }
+
     public void addInt(int amount) { statIntelligence = statIntelligence + amount; }
+
+    public void setInt(int amount) { statIntelligence  = amount; }
 
     public double getCurrentHealth() { return (GameValues.HEATLH_PER_STR*statStrength) + 20; }
 

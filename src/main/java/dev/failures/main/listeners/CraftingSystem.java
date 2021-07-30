@@ -2,10 +2,7 @@ package dev.failures.main.listeners;
 
 import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerHandler;
-import dev.failures.main.storage.ArmorValues;
-import dev.failures.main.storage.DataKeys;
-import dev.failures.main.storage.TextureValues;
-import dev.failures.main.storage.GameValues;
+import dev.failures.main.storage.*;
 import dev.failures.main.utils.ChatUtil;
 import dev.failures.main.utils.PDUtil;
 import dev.triumphteam.gui.components.nbt.LegacyNbt;
@@ -58,11 +55,11 @@ public class CraftingSystem implements Listener {
             updateItemLore(itemCrafted, false);
             e.getInventory().setResult(itemCrafted);
         } else { //create new armor
-            int strBase = ArmorValues.getBaseStats(itemCraftedType).get("str");
-            int agiBase = ArmorValues.getBaseStats(itemCraftedType).get("agi");
-            int intelBase = ArmorValues.getBaseStats(itemCraftedType).get("intel");
-            int vitBase = ArmorValues.getBaseStats(itemCraftedType).get("vit");
-            int levelBase = ArmorValues.getBaseStats(itemCraftedType).get("level");
+            int strBase = ArmorValues.getArmorValues(itemCraftedType).getStr();
+            int agiBase = ArmorValues.getArmorValues(itemCraftedType).getAgi();
+            int intelBase = ArmorValues.getArmorValues(itemCraftedType).getIntel();
+            int vitBase = ArmorValues.getArmorValues(itemCraftedType).getVit();
+            int levelBase = ArmorValues.getArmorValues(itemCraftedType).getLevel();
 
             DataKeys.setStrength(itemCrafted, strBase);
             DataKeys.setAgility(itemCrafted, agiBase);
@@ -156,16 +153,8 @@ public class CraftingSystem implements Listener {
     }
 
     private void randomizeStats(ItemStack placed, ItemStack crafted) {
-        String pool = "";
-        if(crafted.getType().toString().contains("DIAMOND")) {
-            pool = getRandom("str", 4, "agi", 2, "inte", 2, "vit", 2);
-        } else if(crafted.getType().toString().contains("GOLDEN")) {
-            pool = getRandom("str", 2, "agi", 2, "inte", 2, "vit", 4);
-        } else if(crafted.getType().toString().contains("IRON")) {
-            pool = getRandom("str", 2, "agi", 4, "inte", 2, "vit", 2);
-        } else if(crafted.getType().toString().contains("LEATHER")) {
-            pool = getRandom("str", 2, "agi", 2, "inte", 4, "vit", 2);
-        }
+        int min = 0; int max = 100;
+        int randomInt = (int)Math.floor(Math.random()*(max-min+1)+min);
 
         int str = DataKeys.getStrength(placed);
         int agi = DataKeys.getAgility(placed);
@@ -173,38 +162,17 @@ public class CraftingSystem implements Listener {
         int vit = DataKeys.getVitality(placed);
         int level = DataKeys.getLevel(placed) + 1;
 
-        if(pool == "str") {
-            str++;
-        } else if(pool == "agi") {
-            agi++;
-        } else if(pool == "inte") {
-            intel++;
-        } else {
-            vit++;
-        }
         DataKeys.setStrength(crafted, str);
         DataKeys.setAgility(crafted, agi);
         DataKeys.setIntel(crafted, intel);
         DataKeys.setVitality(crafted, vit);
         DataKeys.setLevel(crafted, level);
-    }
 
-    private String getRandom(String s, int sa, String a, int aa, String i, int ia, String v, int va) {
-        ArrayList<String> values = new ArrayList<>();
-        for(int j = 0 ; j < sa ; j++) {
-            values.add(s);
+        if(randomInt <= 40) {
+            ArmorValues.addMainStat(crafted,1);
+        } else if(randomInt > 40 && randomInt <= 100) {
+            ArmorValues.addOffStat(crafted,1);
         }
-        for(int j = 0 ; j < ia ; j++) {
-            values.add(a);
-        }
-        for(int j = 0 ; j < aa ; j++) {
-            values.add(i);
-        }
-        for(int j = 0 ; j < va ; j++) {
-            values.add(v);
-        }
-        int index = (int)(Math.random() * values.size());
-        return values.get(index);
     }
 
     private boolean isArmor(ItemStack item) {

@@ -9,6 +9,7 @@ import dev.failures.main.utils.GuiUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,6 +40,7 @@ public class StatsCommand implements CommandExecutor {
                 .create();
 
         statsGUI.setDefaultClickAction(event -> event.setCancelled(true));
+        statsGUI.getFiller().fillBorder(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).asGuiItem());
 
         int str = playerHandler.getOnlinePlayerSaves().get(p).getStr();
         double currHP = playerHandler.getOnlinePlayerSaves().get(p).getCurrentHealth();
@@ -148,7 +150,6 @@ public class StatsCommand implements CommandExecutor {
             }
             row--;
         }
-
         statsGUI.open(p);
         return false;
     }
