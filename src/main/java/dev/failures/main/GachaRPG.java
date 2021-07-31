@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dev.failures.main.armorequip.ArmorListener;
 import dev.failures.main.commands.*;
 import dev.failures.main.handlers.CustomItemHandler;
+import dev.failures.main.handlers.DungeonHandler;
 import dev.failures.main.handlers.PartyHandler;
 import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.listeners.*;
@@ -19,6 +20,9 @@ public final class GachaRPG extends JavaPlugin {
     public static Gson gson;
     private MongoDB mongo;
     PlayerHandler playerHandler;
+    PartyHandler partyHandler;
+    DungeonHandler dungeonHandler;
+    ArrayList<String> dungeonNames = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -26,12 +30,12 @@ public final class GachaRPG extends JavaPlugin {
         instance = this;
         gson = new GsonBuilder().create();
         playerHandler = new PlayerHandler(mongo);
-        PartyHandler partyHandler = new PartyHandler();
+        partyHandler = new PartyHandler();
+        dungeonHandler = new DungeonHandler(playerHandler, partyHandler);
         CustomItemHandler.createRecipes();
-        registerCommands(playerHandler, partyHandler);
-        registerListeners(playerHandler, partyHandler);
+        registerCommands();
+        registerListeners();
         getLogger().info("GachaRPG has been enabled.");
-
     }
 
     public static GachaRPG getInstance() {
@@ -46,10 +50,11 @@ public final class GachaRPG extends JavaPlugin {
         getLogger().info("GachaRPG has been disabled.");
     }
 
-    public void registerCommands(PlayerHandler playerHandler, PartyHandler partyHandler) {
+    public void registerCommands() {
         getCommand("stats").setExecutor(new StatsCommand(this, playerHandler));
         getCommand("gold").setExecutor(new GoldCommand(this, playerHandler));
         getCommand("party").setExecutor(new PartyCommand(this, playerHandler, partyHandler));
+        getCommand("dungeon").setExecutor(new DungeonCommand(playerHandler, partyHandler, dungeonHandler));
         getCommand("admin").setExecutor(new AdminCommand(playerHandler));
 
         getCommand("skull").setExecutor(new SkullCommand());
@@ -57,7 +62,7 @@ public final class GachaRPG extends JavaPlugin {
         getCommand("lore").setExecutor(new LoreCommand());
     }
 
-    public void registerListeners(PlayerHandler playerHandler, PartyHandler partyHandler) {
+    public void registerListeners() {
         getServer().getPluginManager().registerEvents(new CraftingSystem(this, playerHandler), this);
         getServer().getPluginManager().registerEvents(new ArmorListener(new ArrayList<>()), this);
         getServer().getPluginManager().registerEvents(new ItemEquipSystem(this, playerHandler), this);

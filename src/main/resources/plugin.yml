@@ -13,6 +13,9 @@ commands:
   party:
     aliases: [p]
     description: Party system for dank serber.
+  dungeon:
+    aliases: [d]
+    description: Dungeon system for dank server.
   admin:
     aliases: [gacha]
     description: admin command :)
