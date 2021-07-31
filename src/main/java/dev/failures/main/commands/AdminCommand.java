@@ -56,32 +56,22 @@ public class AdminCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> auto = new ArrayList<>();
         if(!(sender instanceof Player)) return auto;
-        Player p = (Player) sender;
         if(!command.getName().equalsIgnoreCase("admin")) return auto;
         if(args.length == 1) {
-            auto.clear();
             auto.add("set");
             auto.add("add");
             return auto;
         } else if(args.length == 2) {
-            auto.clear();
             Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
             Bukkit.getServer().getOnlinePlayers().toArray(players);
-            for(int i = 0 ; i < players.length ; i++) {
-                auto.add(players[i].getName());
+            for(Player player : players) {
+                auto.add(player.getName());
             }
             return auto;
         } else if(args.length == 3) {
-            auto.clear();
-            auto.add("str");
-            auto.add("intel");
-            auto.add("agi");
-            auto.add("vit");
-            auto.add("sp");
-            auto.add("level");
+            auto.add("str"); auto.add("intel"); auto.add("agi"); auto.add("vit"); auto.add("sp"); auto.add("level");
             return auto;
         } else if(args.length == 4) {
-            auto.clear();
             for(int i = 0 ; i < 100 ; i++) {
                 auto.add("" + i);
             }

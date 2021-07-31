@@ -19,6 +19,7 @@ public final class GachaRPG extends JavaPlugin {
     public static Gson gson;
     private MongoDB mongo;
     PlayerHandler playerHandler;
+    PartyHandler partyHandler;
 
     @Override
     public void onEnable() {
@@ -26,12 +27,12 @@ public final class GachaRPG extends JavaPlugin {
         instance = this;
         gson = new GsonBuilder().create();
         playerHandler = new PlayerHandler(mongo);
-        PartyHandler partyHandler = new PartyHandler();
+        partyHandler = new PartyHandler();
         CustomItemHandler.createRecipes();
-        registerCommands(playerHandler, partyHandler);
-        registerListeners(playerHandler, partyHandler);
-        getLogger().info("GachaRPG has been enabled.");
+        registerCommands();
+        registerListeners();
 
+        getLogger().info("GachaRPG has been enabled.");
     }
 
     public static GachaRPG getInstance() {
@@ -46,7 +47,7 @@ public final class GachaRPG extends JavaPlugin {
         getLogger().info("GachaRPG has been disabled.");
     }
 
-    public void registerCommands(PlayerHandler playerHandler, PartyHandler partyHandler) {
+    public void registerCommands() {
         getCommand("stats").setExecutor(new StatsCommand(this, playerHandler));
         getCommand("gold").setExecutor(new GoldCommand(this, playerHandler));
         getCommand("party").setExecutor(new PartyCommand(this, playerHandler, partyHandler));
@@ -57,7 +58,7 @@ public final class GachaRPG extends JavaPlugin {
         getCommand("lore").setExecutor(new LoreCommand());
     }
 
-    public void registerListeners(PlayerHandler playerHandler, PartyHandler partyHandler) {
+    public void registerListeners() {
         getServer().getPluginManager().registerEvents(new CraftingSystem(this, playerHandler), this);
         getServer().getPluginManager().registerEvents(new ArmorListener(new ArrayList<>()), this);
         getServer().getPluginManager().registerEvents(new ItemEquipSystem(this, playerHandler), this);

@@ -4,7 +4,6 @@ import dev.failures.main.GachaRPG;
 import dev.failures.main.handlers.PlayerHandler;
 import dev.failures.main.storage.*;
 import dev.failures.main.utils.ChatUtil;
-import dev.failures.main.utils.PDUtil;
 import dev.triumphteam.gui.components.nbt.LegacyNbt;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.WordUtils;
@@ -24,9 +23,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 
 public class CraftingSystem implements Listener {
-    private GachaRPG main;
-    private PlayerHandler playerHandler;
-    private LegacyNbt CraftItemStack;
+    private final GachaRPG main;
+    private final PlayerHandler playerHandler;
 
     public CraftingSystem(GachaRPG main, PlayerHandler playerHandler) {
         this.main = main;
@@ -36,9 +34,10 @@ public class CraftingSystem implements Listener {
     @EventHandler
     private void updateLoreCrafted(CraftItemEvent e) {
         if(e.getCurrentItem() == null) return;
-        if(!isArmor(e.getCurrentItem())) return;
-        ItemStack itemCrafted = e.getCurrentItem();
-        updateItemLore(itemCrafted, true);
+        if(isArmor(e.getCurrentItem())) {
+            ItemStack itemCrafted = e.getCurrentItem();
+            updateItemLore(itemCrafted, true);
+        }
     }
 
     @EventHandler
@@ -95,13 +94,10 @@ public class CraftingSystem implements Listener {
         if(e.getInventory().getType().equals(InventoryType.ANVIL)) {
             if(e.getSlot() == 2) {
                 Player p = (Player) e.getWhoClicked();
-                Bukkit.getScheduler().runTaskLater(main, new Runnable() {
-                    @Override
-                    public void run() {
-                        p.setLevel(0);
-                        p.giveExpLevels(playerHandler.getOnlinePlayerSaves().get(p).getLevel());
-                        playerHandler.updatePlayerExp(p);
-                    }
+                Bukkit.getScheduler().runTaskLater(main, () -> {
+                    p.setLevel(0);
+                    p.giveExpLevels(playerHandler.getOnlinePlayerSaves().get(p).getLevel());
+                    playerHandler.updatePlayerExp(p);
                 },10);
             }
         }
@@ -170,7 +166,7 @@ public class CraftingSystem implements Listener {
 
         if(randomInt <= 40) {
             ArmorValues.addMainStat(crafted,1);
-        } else if(randomInt > 40 && randomInt <= 100) {
+        } else if(randomInt <= 100) {
             ArmorValues.addOffStat(crafted,1);
         }
     }

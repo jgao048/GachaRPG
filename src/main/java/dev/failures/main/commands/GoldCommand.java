@@ -12,11 +12,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class GoldCommand implements CommandExecutor {
     private GachaRPG main;
-    private PlayerHandler ph;
+    private PlayerHandler playerHandler;
 
     public GoldCommand(GachaRPG main, PlayerHandler ph) {
         this.main = main;
-        this.ph = ph;
+        this.playerHandler = ph;
     }
 
     @Override
@@ -24,10 +24,10 @@ public class GoldCommand implements CommandExecutor {
         if(!(sender instanceof Player)) return false;
         Player p = (Player) sender;
 
-        double balance = ph.getOnlinePlayerSaves().get(p).getGold();
+        double balance = playerHandler.getOnlinePlayerSaves().get(p).getGold();
         p.sendMessage(ChatUtil.colorize("&#B0FF7CYou currently have " + balance + " Gold."));
 
-        ph.getOnlinePlayerSaves().get(p).addStr(10);
+        playerHandler.getOnlinePlayerSaves().get(p).addStr(10);
         GachaHandler.randomizeRewards(p);
         return false;
     }
