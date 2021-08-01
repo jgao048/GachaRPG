@@ -1,4 +1,5 @@
 package dev.failures.main.utils;
+import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,38 @@ public class PDUtil {
     public PDUtil(NamespacedKey key){
         this.key = key;
     }
+
+    public boolean chunkDataContainsStringKey(Chunk chunk) {
+        PersistentDataContainer chunkData = chunk.getPersistentDataContainer();
+        return chunkData.has(key, PersistentDataType.STRING);
+    }
+
+    public void setChunkDataString(Chunk chunk, String value) {
+        PersistentDataContainer chunkData = chunk.getPersistentDataContainer();
+        chunkData.set(key, PersistentDataType.STRING, value);
+    }
+
+    public String getChunkDataString(Chunk chunk) {
+        String value = "";
+        PersistentDataContainer chunkData = chunk.getPersistentDataContainer();
+        if (chunkData.has(key, PersistentDataType.STRING))
+            value = chunkData.get(key, PersistentDataType.STRING);
+        return value;
+    }
+
+    public Integer getChunkDataInteger(Chunk chunk) {
+        int value = 0;
+        PersistentDataContainer chunkData = chunk.getPersistentDataContainer();
+        if(chunkData.has(key, PersistentDataType.INTEGER))
+            value = chunkData.get(key, PersistentDataType.INTEGER);
+        return value;
+    }
+
+    public void setChunkDataInteger(Chunk chunk, Integer value) {
+        PersistentDataContainer chunkData = chunk.getPersistentDataContainer();
+        chunkData.set(key, PersistentDataType.INTEGER, value);
+    }
+
 
     public boolean itemDataContainsStringKey(ItemStack item){
         ItemMeta meta = item.getItemMeta();
@@ -223,7 +256,7 @@ public class PDUtil {
     }
 
     public String getItemDataString(ItemStack item) {
-        String value = null;
+        String value = "";
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer ItemData = meta.getPersistentDataContainer();
         if (ItemData.has(key, PersistentDataType.STRING))

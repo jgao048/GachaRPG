@@ -25,23 +25,23 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PartyCommand implements CommandExecutor{
-    private GachaRPG main;
-    private PlayerHandler ph;
-    private PartyHandler partyh;
-    private HashMap<Player, Player> hasInvite = new HashMap<>();
+    private final GachaRPG main;
+    private final PlayerHandler playerHandler;
+    private final PartyHandler partyHandler;
+    private final HashMap<Player, Player> hasInvite = new HashMap<>();
 
     public PartyCommand(GachaRPG main, PlayerHandler ph, PartyHandler partyh) {
         this.main = main;
-        this.ph = ph;
-        this.partyh = partyh;
+        this.playerHandler = ph;
+        this.partyHandler = partyh;
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!(sender instanceof Player)) return false;
         Player p = (Player) sender;
-        boolean hasParty = partyh.hasParty(p);
-        boolean isLeader = partyh.isLeader(p);
+        boolean hasParty = partyHandler.hasParty(p);
+        boolean isLeader = partyHandler.isLeader(p);
 
 
         if(args.length == 0) {
@@ -53,7 +53,7 @@ public class PartyCommand implements CommandExecutor{
                 p.sendMessage(ChatUtil.colorize("&7You are currently in a party."));
                 return false;
             }
-            partyh.createParty(p);
+            partyHandler.createParty(p);
             p.sendMessage(ChatUtil.colorize("&aYou have successfully created a party."));
             return true;
         } else if(args[0].equalsIgnoreCase("invite")) {
@@ -64,14 +64,14 @@ public class PartyCommand implements CommandExecutor{
             if(!checkHasParty(p, hasParty)) return false;
             if(!checkHasPermission(p, isLeader)) return false;
             if(!checkIfPlayer(p, args[1])) return false;
-            if(partyh.getPartySize(p) >= GameValues.MAX_PARTY_SIZE) {
+            if(partyHandler.getPartySize(p) >= GameValues.MAX_PARTY_SIZE) {
                 p.sendMessage(ChatUtil.colorize("&7Your party is full."));
                 return false;
             }
 
             Player invitedPlayer = Bukkit.getPlayer(args[1]);
 
-            if(partyh.hasParty(invitedPlayer) || partyh.isLeader(invitedPlayer)) {
+            if(partyHandler.hasParty(invitedPlayer) || partyHandler.isLeader(invitedPlayer)) {
                 p.sendMessage(ChatUtil.colorize("&f" + invitedPlayer.getName() + " &7is already in a party."));
                 return false;
             } else if(hasInvite.containsKey(invitedPlayer)) {
@@ -97,8 +97,8 @@ public class PartyCommand implements CommandExecutor{
             }
             if(hasInvite.containsKey(p)) {
                 Player leader = hasInvite.get(p);
-                partyh.addPartyMember(leader, p);
-                for(Player member:  partyh.getPartyMembers(leader)) {
+                partyHandler.addPartyMember(leader, p);
+                for(Player member:  partyHandler.getPartyMembers(leader)) {
                     member.sendMessage(ChatUtil.colorize("&f" + p.getName() + " &7has joined the party."));
                 }
                 hasInvite.remove(p);
@@ -116,20 +116,20 @@ public class PartyCommand implements CommandExecutor{
             if(!checkIfPlayer(p, args[1])) return false;
             Player kickedPlayer = Bukkit.getPlayer(args[1]);
 
-            if (!partyh.getLeader(kickedPlayer).equals(p)) {
+            if (!partyHandler.getLeader(kickedPlayer).equals(p)) {
                 p.sendMessage(ChatUtil.colorize("&7That player is not in your party."));
                 return false;
             }
-            partyh.removePartyMember(kickedPlayer);
+            partyHandler.removePartyMember(kickedPlayer);
             ChatUtil.msg(kickedPlayer,"&7You have been kicked from &f" + p.getName() + "&7's party." );
-            partyh.sendMessageToParty(p, "&f" + kickedPlayer.getName() + " &7has been kicked from the party.", true);
+            partyHandler.sendMessageToParty(p, "&f" + kickedPlayer.getName() + " &7has been kicked from the party.", true);
 
             return true;
         } else if(args[0].equalsIgnoreCase("disband")) {
             if(!checkHasParty(p, hasParty)) return false;
             if(!checkHasPermission(p, isLeader)) return false;
-            partyh.sendMessageToParty(p, "&f" + p.getName() + " &7has disbanded your party.", true);
-            partyh.disbandParty(p);
+            partyHandler.sendMessageToParty(p, "&f" + p.getName() + " &7has disbanded your party.", true);
+            partyHandler.disbandParty(p);
             return true;
         }
         if(!checkHasParty(p, hasParty)) return false;
@@ -195,10 +195,10 @@ public class PartyCommand implements CommandExecutor{
                 .create();
         onlineParty.setDefaultClickAction(event -> event.setCancelled(true));
         Player findLeader = p;
-        if(!partyh.isLeader(p)) {
-            findLeader = partyh.getLeader(p);
+        if(!partyHandler.isLeader(p)) {
+            findLeader = partyHandler.getLeader(p);
         }
-        for(Player partyMem : partyh.getPartyMembers(findLeader)) {
+        for(Player partyMem : partyHandler.getPartyMembers(findLeader)) {
             if(partyMem.equals(findLeader)) {
                 onlineParty.addItem(ItemBuilder.skull()
                         .name(Component.text(ChatUtil.colorize("&a" + partyMem.getName())))
@@ -235,7 +235,7 @@ public class PartyCommand implements CommandExecutor{
 
         for(Player pl : Bukkit.getOnlinePlayers()) {
             if(p.equals(pl)) continue;
-            if(partyh.hasParty(pl) || partyh.isLeader(pl)) continue;
+            if(partyHandler.hasParty(pl) || partyHandler.isLeader(pl)) continue;
             onlineMembers.addItem(ItemBuilder.skull()
                     .name(Component.text(ChatUtil.colorize("&a" + pl.getName())))
                     .owner(pl)
@@ -249,7 +249,7 @@ public class PartyCommand implements CommandExecutor{
 
     private List<Component> createDataLore(Player p) {
         List<Component> lore = new ArrayList<>();
-        PlayerData pData = ph.getOnlinePlayerSaves().get(p);
+        PlayerData pData = playerHandler.getOnlinePlayerSaves().get(p);
         lore.add(Component.text(ChatUtil.colorize("&7Level:&f " + pData.getLevel())));
         lore.add(Component.text(ChatUtil.colorize("&7Exp:&f " + pData.getExp())));
         lore.add(Component.text(ChatUtil.colorize("&7Strength:&f " + pData.getStr())));

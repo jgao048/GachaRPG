@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
         <autoDetectTypes>
           <platformType>PAPER</platformType>
+          <platformType>ADVENTURE</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_X">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -47,5 +48,8 @@
     <orderEntry type="library" name="Maven: org.checkerframework:checker-qual:3.10.0" level="project" />
     <orderEntry type="library" name="Maven: net.kyori:examination-string:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:21.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.onarandombox.multiversecore:Multiverse-Core:4.3.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fastasyncworldedit:FAWE-Core:1.17-93" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fastasyncworldedit:FAWE-Bukkit:1.17-93" level="project" />
   </component>
 </module>

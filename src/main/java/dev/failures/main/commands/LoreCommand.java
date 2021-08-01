@@ -25,7 +25,7 @@ public class LoreCommand implements CommandExecutor {
         ItemStack itemHand = p.getInventory().getItemInMainHand();
         StringBuilder input = new StringBuilder(args[0]);
         for(int i = 1 ; i < args.length ;i++) {
-            input.append(" " + args[i]);
+            input.append(" ").append(args[i]);
         }
         List<String> lore = Arrays.asList(input.toString().split(","));
         ItemMeta im = itemHand.getItemMeta();

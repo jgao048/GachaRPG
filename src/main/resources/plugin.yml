@@ -24,3 +24,6 @@ commands:
   skull:
     aliases: [head]
     description: Gives player head
+  farm:
+    alias: [cactus]
+    description: Gives chunk collector

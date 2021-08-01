@@ -17,10 +17,10 @@ import java.util.concurrent.CompletableFuture;
 public class MongoDB {
     private final MongoCollection<Document> collection;
 
-    public MongoDB() {
+    public MongoDB(String collectionName) {
         MongoClient mongoClient = MongoClients.create("mongodb+srv://admin:gacharpg123@gacharpg.r4lca.mongodb.net/gacharpg?retryWrites=true&w=majority");
         MongoDatabase database = mongoClient.getDatabase("gacharpg");
-        collection = database.getCollection("playerdata");
+        collection = database.getCollection(collectionName);
     }
 
     public MongoCollection<Document> getCollection() {

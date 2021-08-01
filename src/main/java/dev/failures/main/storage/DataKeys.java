@@ -7,6 +7,11 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
 public class DataKeys {
+
+    public static PDUtil CHEST_TYPE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "collectorType"));
+    public static PDUtil CHUNK_LOCATION = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "chunkLocation"));
+    public static PDUtil CHUNK_TYPE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "chunkType"));
+
     public static PDUtil STRENGTH = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "strength"));
     public static PDUtil AGILITY = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "agility"));
     public static PDUtil INTELLIGENCE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "intelligence"));

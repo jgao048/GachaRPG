@@ -23,12 +23,13 @@ public final class GachaRPG extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        mongo = new MongoDB();
+        mongo = new MongoDB("playerdata");
         instance = this;
         gson = new GsonBuilder().create();
         playerHandler = new PlayerHandler(mongo);
         partyHandler = new PartyHandler();
         CustomItemHandler.createRecipes();
+
         registerCommands();
         registerListeners();
 
@@ -56,6 +57,8 @@ public final class GachaRPG extends JavaPlugin {
         getCommand("skull").setExecutor(new SkullCommand());
         getCommand("rename").setExecutor(new RenameCommand());
         getCommand("lore").setExecutor(new LoreCommand());
+
+        getCommand("farm").setExecutor(new FarmCommand());
     }
 
     public void registerListeners() {
@@ -66,5 +69,7 @@ public final class GachaRPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LevelSystem(this, playerHandler, partyHandler), this);
         getServer().getPluginManager().registerEvents(new CreateProfileEvent(this, mongo), this);
         getServer().getPluginManager().registerEvents(new PartyListeners(this, partyHandler), this);
+
+        getServer().getPluginManager().registerEvents(new FarmingSystem(), this);
     }
 }
