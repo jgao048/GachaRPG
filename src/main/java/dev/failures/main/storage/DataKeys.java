@@ -12,6 +12,8 @@ public class DataKeys {
     public static PDUtil CHUNK_LOCATION = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "chunkLocation"));
     public static PDUtil CHUNK_TYPE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "chunkType"));
 
+    public static PDUtil BUCKET_TYPE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "bucketType"));
+
     public static PDUtil STRENGTH = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "strength"));
     public static PDUtil AGILITY = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "agility"));
     public static PDUtil INTELLIGENCE = new PDUtil(new NamespacedKey(GachaRPG.getInstance(), "intelligence"));

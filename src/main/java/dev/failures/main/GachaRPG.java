@@ -57,8 +57,8 @@ public final class GachaRPG extends JavaPlugin {
         getCommand("skull").setExecutor(new SkullCommand());
         getCommand("rename").setExecutor(new RenameCommand());
         getCommand("lore").setExecutor(new LoreCommand());
-
         getCommand("farm").setExecutor(new FarmCommand());
+        getCommand("genbucket").setExecutor(new GenbucketCommand());
     }
 
     public void registerListeners() {
@@ -71,5 +71,6 @@ public final class GachaRPG extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PartyListeners(this, partyHandler), this);
 
         getServer().getPluginManager().registerEvents(new FarmingSystem(), this);
+        getServer().getPluginManager().registerEvents(new BucketListener(), this);
     }
 }

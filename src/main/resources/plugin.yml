@@ -27,3 +27,5 @@ commands:
   farm:
     alias: [cactus]
     description: Gives chunk collector
+  genbucket:
+    description: Gives player genbuckets
